@@ -210,7 +210,7 @@ def augmented_points(momentses):
         sigma points for each element of momentses
     '''
     # stack everything together
-    means, covariances = zip(*momentses)
+    means, covariances = list(zip(*momentses))
     mu_aug = np.concatenate(means)
     sigma_aug = linalg.block_diag(*covariances)
     moments_aug = Moments(mu_aug, sigma_aug)
@@ -496,7 +496,7 @@ def augmented_unscented_smoother(mu_filt, sigma_filt, f, Q):
     sigma_smooth = np.zeros(sigma_filt.shape)
     mu_smooth[-1], sigma_smooth[-1] = mu_filt[-1], sigma_filt[-1]
 
-    for t in reversed(range(T - 1)):
+    for t in reversed(list(range(T - 1))):
         # get sigma points for [state, transition noise]
         mu = mu_filt[t]
         sigma = sigma_filt[t]
@@ -643,7 +643,7 @@ def additive_unscented_smoother(mu_filt, sigma_filt, f, Q):
     sigma_smooth = np.zeros(sigma_filt.shape)
     mu_smooth[-1], sigma_smooth[-1] = mu_filt[-1], sigma_filt[-1]
 
-    for t in reversed(range(T - 1)):
+    for t in reversed(list(range(T - 1))):
         # get sigma points for state
         mu = mu_filt[t]
         sigma = sigma_filt[t]

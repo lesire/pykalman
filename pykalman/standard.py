@@ -515,7 +515,7 @@ def _smooth(transition_matrices, filtered_state_means,
     smoothed_state_means[-1] = filtered_state_means[-1]
     smoothed_state_covariances[-1] = filtered_state_covariances[-1]
 
-    for t in reversed(range(n_timesteps - 1)):
+    for t in reversed(list(range(n_timesteps - 1))):
         transition_matrix = _last_dims(transition_matrices, t)
         (smoothed_state_means[t], smoothed_state_covariances[t],
          kalman_smoothing_gains[t]) = (
@@ -1383,12 +1383,12 @@ class KalmanFilter(object):
                 'initial_state_covariance': self.initial_state_covariance
             }
             em_vars = set(em_vars)
-            for k in given.keys():
+            for k in list(given.keys()):
                 if k in em_vars:
                     given.pop(k)
 
         # If a parameter is time varying, print a warning
-        for (k, v) in get_params(self).items():
+        for (k, v) in list(get_params(self).items()):
             if k in DIM and (not k in given) and len(v.shape) != DIM[k]:
                 warn_str = (
                     '%s has %s dimensions now; after fitting, '

@@ -9,5 +9,5 @@ spaces.
 
 from .standard import KalmanFilter
 from .unscented import AdditiveUnscentedKalmanFilter, UnscentedKalmanFilter
-import datasets
-import sqrt
+from . import datasets
+from . import sqrt

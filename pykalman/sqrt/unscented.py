@@ -503,7 +503,7 @@ def _additive_unscented_smoother(mu_filt, sigma2_filt, f, Q):
     mu_smooth[-1], sigma2_smooth[-1] = mu_filt[-1], sigma2_filt[-1]
     Q2 = linalg.cholesky(Q)
 
-    for t in reversed(range(T - 1)):
+    for t in reversed(list(range(T - 1))):
         # get sigma points for state
         mu = mu_filt[t]
         sigma2 = sigma2_filt[t]

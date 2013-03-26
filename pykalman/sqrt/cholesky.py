@@ -609,12 +609,12 @@ class CholeskyKalmanFilter(KalmanFilter):
                 'initial_state_covariance': self.initial_state_covariance
             }
             em_vars = set(em_vars)
-            for k in given.keys():
+            for k in list(given.keys()):
                 if k in em_vars:
                     given.pop(k)
 
         # If a parameter is time varying, print a warning
-        for (k, v) in get_params(self).items():
+        for (k, v) in list(get_params(self).items()):
             if k in DIM and (not k in given) and len(v.shape) != DIM[k]:
                 warn_str = (
                     '%s has %s dimensions now; after fitting, '

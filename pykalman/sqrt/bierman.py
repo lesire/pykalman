@@ -63,7 +63,7 @@ def udu(M):
     M = np.triu(M)
     U = np.eye(n)
     d = np.zeros(n)
-    for j in reversed(range(2, n + 1)):
+    for j in reversed(list(range(2, n + 1))):
         d[j - 1] = M[j - 1, j - 1]
         if d[j - 1] > 0:
             alpha = 1.0 / d[j - 1]
@@ -774,12 +774,12 @@ class BiermanKalmanFilter(KalmanFilter):
                 'initial_state_covariance': self.initial_state_covariance
             }
             em_vars = set(em_vars)
-            for k in given.keys():
+            for k in list(given.keys()):
                 if k in em_vars:
                     given.pop(k)
 
         # If a parameter is time varying, print a warning
-        for (k, v) in get_params(self).items():
+        for (k, v) in list(get_params(self).items()):
             if k in DIM and (not k in given) and len(v.shape) != DIM[k]:
                 warn_str = (
                     '%s has %s dimensions now; after fitting, '
